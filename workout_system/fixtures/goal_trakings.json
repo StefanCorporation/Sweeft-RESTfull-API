@@ -1,0 +1,1 @@
+[{"model": "workout_system.goaltracking", "pk": 1, "fields": {"user": 1, "user_weight": 78.0, "goals": "100", "personal_exercise": 1}}, {"model": "workout_system.goaltracking", "pk": 2, "fields": {"user": 2, "user_weight": 65.0, "goals": "58", "personal_exercise": 3}}]
