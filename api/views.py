@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from users.models import User
 from workout_system.models import WorkoutCategory, WorkoutExercise, PersonalWorkoutPlan,  GoalTracking
 from api.serializers import (UserSerializer, WorkoutCategorySerializer, WorkoutExercisesSerializer, 
@@ -16,7 +16,7 @@ class UserViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
-            self.permission_classes = [IsAuthenticatedOrReadOnly]
+            self.permission_classes = [IsAuthenticated]
         return super(UserViewSet, self).get_permissions()
     
 
@@ -28,7 +28,7 @@ class WorkoutCategoryViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
-            self.permission_classes = [IsAuthenticatedOrReadOnly]
+            self.permission_classes = [IsAuthenticated]
         return super(WorkoutCategoryViewSet, self).get_permissions()
 
 
@@ -41,7 +41,7 @@ class WorkoutExercisesViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
-            self.permission_classes = [IsAuthenticatedOrReadOnly]
+            self.permission_classes = [IsAuthenticated]
         return super(WorkoutExercisesViewSet, self).get_permissions()
 
 
@@ -54,7 +54,7 @@ class PersonalWorkoutPlansViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
-            self.permission_classes = [IsAuthenticatedOrReadOnly]
+            self.permission_classes = [IsAuthenticated]
         return super(PersonalWorkoutPlansViewSet, self).get_permissions()
 
 
@@ -67,5 +67,5 @@ class GoalTrackingViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
-            self.permission_classes = [IsAuthenticatedOrReadOnly]
+            self.permission_classes = [IsAuthenticated]
         return super(GoalTrackingViewSet, self).get_permissions()

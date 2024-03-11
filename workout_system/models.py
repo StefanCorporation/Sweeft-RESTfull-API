@@ -17,7 +17,7 @@ class WorkoutCategory(models.Model):
 class WorkoutExercise(models.Model):
     exercise_name = models.CharField(max_length=50, unique=True, blank=True)
     exerciese_description = models.TextField(null=True, blank=True)
-    category = models.ForeignKey(WorkoutCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(WorkoutCategory, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
 
@@ -28,8 +28,6 @@ class WorkoutExercise(models.Model):
 
 class PersonalWorkoutPlan(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # тут связь работает так что упражнения создаються в верхней модели а выбирать персональные
-    # упражнения можно из этой модели (а редактируешь с первой модели)
     exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE)
     frequency_per_week = models.IntegerField()
     sets = models.IntegerField()
