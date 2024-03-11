@@ -30,8 +30,8 @@ class WorkoutExercisesSerializer(serializers.ModelSerializer):
 
 
 class PersonalWorkoutPlansSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    exercise = WorkoutExercisesSerializer()
+    #user = UserSerializer()
+    #exercise = WorkoutExercisesSerializer()
 
     class Meta:
         model = PersonalWorkoutPlan
