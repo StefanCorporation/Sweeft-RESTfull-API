@@ -5,7 +5,7 @@ from users.models import User
 
 
 class WorkoutCategory(models.Model):
-    category_name = models.CharField(max_length=35, unique=True, blank=True)
+    category_name = models.CharField(max_length=35, unique=True, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
 
@@ -27,10 +27,10 @@ class WorkoutExercise(models.Model):
 
 
 class PersonalWorkoutPlan(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE)
-    frequency_per_week = models.IntegerField()
-    sets = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, null=True)
+    frequency_per_week = models.IntegerField(null=True)
+    sets = models.IntegerField(null=True)
     duration = models.DurationField(null=True, blank=True)
     distance = models.FloatField(null=True, blank=True)
     goals = models.TextField(null=True, blank=True)
@@ -42,10 +42,10 @@ class PersonalWorkoutPlan(models.Model):
 
 
 class GoalTracking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_weight = models.FloatField(default=0.0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user_weight = models.FloatField(default=0.0, null=True)
     goals = models.TextField(null=True, blank=True)
-    personal_exercise = models.ForeignKey(PersonalWorkoutPlan, on_delete=models.CASCADE)
+    personal_exercise = models.ForeignKey(PersonalWorkoutPlan, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"Personal Goal Tracking for: {self.user.username}"

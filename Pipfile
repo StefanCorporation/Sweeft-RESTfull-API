@@ -9,6 +9,7 @@ psycopg2 = "*"
 pillow = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
+djoser = "*"
 
 [dev-packages]
 

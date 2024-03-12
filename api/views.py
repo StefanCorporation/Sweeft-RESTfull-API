@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from users.models import User
 from workout_system.models import WorkoutCategory, WorkoutExercise, PersonalWorkoutPlan,  GoalTracking
 from api.serializers import (UserSerializer, WorkoutCategorySerializer, WorkoutExercisesSerializer, 
@@ -19,7 +19,7 @@ class WorkoutCategoryViewSet(ModelViewSet):
     queryset = WorkoutCategory.objects.all()
     serializer_class = WorkoutCategorySerializer    
 
-    # Can read without JWT token
+    # Can only read without token
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
             self.permission_classes = [IsAuthenticated]
@@ -32,16 +32,15 @@ class WorkoutCategoryViewSet(ModelViewSet):
 
 class WorkoutExercisesViewSet(ModelViewSet):
     queryset = WorkoutExercise.objects.all()
-    serializer_class = WorkoutExercisesSerializer  
+    serializer_class = WorkoutExercisesSerializer
 
-    # Can read without JWT token
+    # Can only read without token 
     def get_permissions(self):
         if self.action in ['create', 'update', 'destroy']:
             self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [IsAuthenticatedOrReadOnly]
-        return super(WorkoutCategoryViewSet, self).get_permissions()
-
+        return super(WorkoutExercisesViewSet, self).get_permissions()
 
 
 

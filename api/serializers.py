@@ -21,7 +21,7 @@ class WorkoutCategorySerializer(serializers.ModelSerializer):
 
 
 class WorkoutExercisesSerializer(serializers.ModelSerializer):
-    category = WorkoutCategorySerializer()
+    #category = serializers.StringRelatedField(source='category.category_name')
 
     class Meta:
         model = WorkoutExercise
@@ -30,19 +30,28 @@ class WorkoutExercisesSerializer(serializers.ModelSerializer):
 
 
 class PersonalWorkoutPlansSerializer(serializers.ModelSerializer):
-    #user = UserSerializer()
-    #exercise = WorkoutExercisesSerializer()
+    user = serializers.StringRelatedField()
+    exercise = WorkoutExercisesSerializer()
+
 
     class Meta:
         model = PersonalWorkoutPlan
         fields = ['id', 'user', 'exercise', 'frequency_per_week', 
                   'sets', 'duration', 'distance', 'goals', 'created_at']
-
+        
+        
 
 
 class GoalTrackingSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     personal_exercise = PersonalWorkoutPlansSerializer()
+
+    # for nested fields
+    def update(self, instance, validated_data):
+        instance.user_weight = validated_data.get('user_weight', instance.user_weight)
+        instance.goals = validated_data.get('goals', instance.goals)
+        instance.save()
+        return instance
 
     class Meta:
         model = GoalTracking
