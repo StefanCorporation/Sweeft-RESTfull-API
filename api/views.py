@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from users.models import User
 from workout_system.models import WorkoutCategory, WorkoutExercise, PersonalWorkoutPlan,  GoalTracking
 from api.serializers import (UserSerializer, WorkoutCategorySerializer, WorkoutExercisesSerializer, 
@@ -56,3 +56,16 @@ class GoalTrackingViewSet(ModelViewSet):
     queryset = GoalTracking.objects.all()
     serializer_class = GoalTrackingSerializer  
     permission_classes = [IsAuthenticated]  
+
+
+
+class ProfileViewSet(ModelViewSet):
+    queryset = PersonalWorkoutPlan.objects.all()
+    serializer_class = PersonalWorkoutPlansSerializer
+    permission_classes = [IsAuthenticated]
+
+    
+
+    def get_queryset(self):
+        user = self.request.user
+        return PersonalWorkoutPlan.objects.filter(user=user)

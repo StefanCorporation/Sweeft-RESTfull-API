@@ -1,7 +1,7 @@
 from django.urls import path, include, re_path
 
 from api.views import (UserViewSet, WorkoutCategoryViewSet, WorkoutExercisesViewSet, 
-                            PersonalWorkoutPlansViewSet, GoalTrackingViewSet)
+                            PersonalWorkoutPlansViewSet, GoalTrackingViewSet, ProfileViewSet)
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
@@ -12,6 +12,7 @@ router.register(r'category', WorkoutCategoryViewSet)
 router.register(r'exercise', WorkoutExercisesViewSet)
 router.register(r'personal-plans', PersonalWorkoutPlansViewSet)
 router.register(r'goal-traking', GoalTrackingViewSet)
+router.register(r'profile', ProfileViewSet)
 
 
 app_name = 'api'

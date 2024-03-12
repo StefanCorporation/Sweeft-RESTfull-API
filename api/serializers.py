@@ -31,7 +31,7 @@ class WorkoutExercisesSerializer(serializers.ModelSerializer):
 
 class PersonalWorkoutPlansSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
-    exercise = WorkoutExercisesSerializer()
+    #exercise = WorkoutExercisesSerializer()
 
 
     class Meta:
@@ -45,6 +45,8 @@ class PersonalWorkoutPlansSerializer(serializers.ModelSerializer):
 class GoalTrackingSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     personal_exercise = PersonalWorkoutPlansSerializer()
+
+    
 
     # for nested fields
     def update(self, instance, validated_data):

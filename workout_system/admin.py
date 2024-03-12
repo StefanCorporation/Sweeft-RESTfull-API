@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from workout_system.models import WorkoutCategory, WorkoutExercise, PersonalWorkoutPlan, GoalTracking
+from workout_system.models import (WorkoutCategory, WorkoutExercise, PersonalWorkoutPlan, 
+                                   GoalTracking)
 
 
 admin.site.register(WorkoutCategory)
 admin.site.register(GoalTracking)
-
 
 @admin.register(WorkoutExercise)
 class WorkoutExercisesAdmin(admin.ModelAdmin):
@@ -15,3 +15,5 @@ class WorkoutExercisesAdmin(admin.ModelAdmin):
 @admin.register(PersonalWorkoutPlan)
 class PersonalWorkoutPlansAdmin(admin.ModelAdmin):
     search_fields = ['user__username']
+
+

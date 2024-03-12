@@ -27,7 +27,7 @@ class WorkoutExercise(models.Model):
 
 
 class PersonalWorkoutPlan(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, null=True)
     frequency_per_week = models.IntegerField(null=True)
     sets = models.IntegerField(null=True)
