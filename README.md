@@ -56,6 +56,10 @@ Example:
 ###### python manage.py loaddata workout_system/fixtures/workout_categories.json
 _____
 
+## SWAGGER
+URL: http://127.0.0.1:8000/swagger/
+_____
+
 ## Categories
 #### Any user can view category data (GET request only)
 URL: http://127.0.0.1:8000/api/v1/category/
