@@ -21,7 +21,7 @@ class WorkoutCategorySerializer(serializers.ModelSerializer):
 
 
 class WorkoutExercisesSerializer(serializers.ModelSerializer):
-    #category = serializers.StringRelatedField(source='category.category_name')
+    # category = serializers.StringRelatedField(source='category.category_name')
 
     class Meta:
         model = WorkoutExercise
@@ -30,8 +30,8 @@ class WorkoutExercisesSerializer(serializers.ModelSerializer):
 
 
 class PersonalWorkoutPlansSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    #exercise = WorkoutExercisesSerializer()
+    # user = serializers.StringRelatedField()
+    # exercise = WorkoutExercisesSerializer()
 
 
     class Meta:
@@ -43,8 +43,8 @@ class PersonalWorkoutPlansSerializer(serializers.ModelSerializer):
 
 
 class GoalTrackingSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    personal_exercise = PersonalWorkoutPlansSerializer()
+    # user = UserSerializer()
+    # personal_exercise = PersonalWorkoutPlansSerializer()
 
     
 
@@ -57,6 +57,6 @@ class GoalTrackingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GoalTracking
-        fields = ['user', 'user_weight', 'goals', 'personal_exercise']
+        fields = ['id', 'user', 'user_weight', 'goals', 'personal_exercise']
 
 

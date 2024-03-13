@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from users.models import User
 from workout_system.models import WorkoutCategory, WorkoutExercise, PersonalWorkoutPlan,  GoalTracking
 from api.serializers import (UserSerializer, WorkoutCategorySerializer, WorkoutExercisesSerializer, 
@@ -12,6 +12,16 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+    
+
+    # if user is admin he got's all list of users if user is authenticated only he got's
+    # his data
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return User.objects.all()
+        elif self.request.user.is_authenticated or self.request.user.is_staff:
+            username = self.request.user
+        return User.objects.filter(username=username)
 
 
 
@@ -47,8 +57,18 @@ class WorkoutExercisesViewSet(ModelViewSet):
 class PersonalWorkoutPlansViewSet(ModelViewSet):
     queryset = PersonalWorkoutPlan.objects.all()
     serializer_class = PersonalWorkoutPlansSerializer
-    permission_classes = [IsAuthenticated]  
+    permission_classes = [IsAuthenticated]
 
+
+    # if user is admin he got's all list of users if user is authenticated only he got's
+    # his data
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return PersonalWorkoutPlan.objects.all()
+        elif self.request.user.is_authenticated or self.request.user.is_staff:
+            user = self.request.user
+        return PersonalWorkoutPlan.objects.filter(user=user)
+    
 
 
 
@@ -58,6 +78,16 @@ class GoalTrackingViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]  
 
 
+    # if user is admin he got's all list of users if user is authenticated only he got's
+    # his data
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return GoalTracking.objects.all()
+        elif self.request.user.is_authenticated or self.request.user.is_staff:
+            user = self.request.user
+        return GoalTracking.objects.filter(user=user)
+    
+
 
 class ProfileViewSet(ModelViewSet):
     queryset = PersonalWorkoutPlan.objects.all()
@@ -65,7 +95,9 @@ class ProfileViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     
-
     def get_queryset(self):
-        user = self.request.user
+        if self.request.user.is_staff:
+            return PersonalWorkoutPlan.objects.all()
+        elif self.request.user.is_authenticated or self.request.user.is_staff:
+            user = self.request.user
         return PersonalWorkoutPlan.objects.filter(user=user)
